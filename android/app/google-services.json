@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "872594570581",
+    "project_id": "mirea-course-work",
+    "storage_bucket": "mirea-course-work.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872594570581:android:63dee598bac247680f03dc",
+        "android_client_info": {
+          "package_name": "com.example.coursework"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872594570581-ehul6uqbt136emno7l0l7lu7h656kpth.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.coursework",
+            "certificate_hash": "9ffed08f889d09edbc6b3f200118d859ef01cb46"
+          }
+        },
+        {
+          "client_id": "872594570581-crhij55qp04o1lakls69p77rb58oe4o2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEMCuUTyioXOhMRQA03THyXQhioIGW_Dw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872594570581-crhij55qp04o1lakls69p77rb58oe4o2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "872594570581-pn1n8dq0mo3uthajpn93tigi66reqk6u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.coursework"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
