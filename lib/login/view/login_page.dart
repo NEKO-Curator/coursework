@@ -1,5 +1,6 @@
 import 'package:auth_repository/auth_repository.dart';
 import 'package:coursework/login/login.dart';
+import 'package:coursework/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,7 +15,7 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Login'),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 78, 110, 93),
+        backgroundColor: appBarColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),

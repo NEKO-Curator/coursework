@@ -145,13 +145,27 @@ class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return TextButton(
-      key: const Key('loginForm_createAccount_flatButton'),
-      onPressed: () => Navigator.of(context).push<void>(SignUpPage.route()),
-      child: Text(
-        'CREATE ACCOUNT',
-        style: TextStyle(color: theme.primaryColor),
-      ),
-    );
+    return ElevatedButton(
+        key: const Key('loginForm_createAccount_flatButton'),
+        onPressed: () => Navigator.of(context).push<void>(SignUpPage.route()),
+        child: Text(
+          'CREATE ACCOUNT',
+          style: TextStyle(color: theme.primaryColor),
+        ),
+        style: ElevatedButton.styleFrom(
+          primary: Color(0xFFFF715B), // we can set primary color
+          shadowColor: Colors
+              .grey, //shadow prop is a very nice prop for every button or card widgets.
+          side: BorderSide(
+              color: Color.fromARGB(195, 255, 113, 91), //change border color
+              width: 2, //change border width
+              style: BorderStyle
+                  .solid), // change border side of this beautiful button
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+                30), //change border radius of this beautiful button thanks to BorderRadius.circular function
+          ),
+          tapTargetSize: MaterialTapTargetSize.padded,
+        ));
   }
 }
