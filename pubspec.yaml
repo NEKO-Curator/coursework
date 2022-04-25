@@ -9,6 +9,8 @@ environment:
   sdk: ">=2.16.0-134.0.dev <3.0.0"
 
 dependencies:
+  messager_repository:
+    path: packages/messager_repository
   auth_repository:
     path: packages/auth_repository
   bloc: ^8.0.2

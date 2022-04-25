@@ -1,5 +1,5 @@
 import 'package:coursework/app/app.dart';
-import 'package:coursework/theme.dart';
+import 'package:coursework/allConstants/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
