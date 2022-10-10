@@ -17,7 +17,7 @@ class LoginForm extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
-                content: Text(state.errorMessage ?? 'Authentication Failure'),
+                content: Text(state.errorMessage ?? 'Ошибка авторизации'),
               ),
             );
         }
@@ -63,7 +63,7 @@ class _EmailInput extends StatelessWidget {
           decoration: InputDecoration(
             labelText: 'email',
             helperText: '',
-            errorText: state.email.invalid ? 'invalid email' : null,
+            errorText: state.email.invalid ? 'неверный email' : null,
           ),
         );
       },
@@ -83,9 +83,9 @@ class _PasswordInput extends StatelessWidget {
               context.read<LoginCubit>().passwordChanged(password),
           obscureText: true,
           decoration: InputDecoration(
-            labelText: 'password',
+            labelText: 'пароль',
             helperText: '',
-            errorText: state.password.invalid ? 'invalid password' : null,
+            errorText: state.password.invalid ? 'неверный пароль' : null,
           ),
         );
       },
@@ -107,12 +107,12 @@ class _LoginButton extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  primary: const Color(0xFFFFD600),
+                  backgroundColor: const Color(0xFFFFD600),
                 ),
                 onPressed: state.status.isValidated
                     ? () => context.read<LoginCubit>().logInWithCredentials()
                     : null,
-                child: const Text('LOGIN'),
+                child: const Text('ВХОД'),
               );
       },
     );
@@ -126,14 +126,14 @@ class _GoogleLoginButton extends StatelessWidget {
     return ElevatedButton.icon(
       key: const Key('loginForm_googleLogin_raisedButton'),
       label: const Text(
-        'SIGN IN WITH GOOGLE',
+        'GOOGLE ВХОД',
         style: TextStyle(color: Colors.white),
       ),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
-        primary: theme.colorScheme.secondary,
+        backgroundColor: theme.colorScheme.secondary,
       ),
       icon: const Icon(FontAwesomeIcons.google, color: Colors.white),
       onPressed: () => context.read<LoginCubit>().logInWithGoogle(),
@@ -149,21 +149,18 @@ class _SignUpButton extends StatelessWidget {
         key: const Key('loginForm_createAccount_flatButton'),
         onPressed: () => Navigator.of(context).push<void>(SignUpPage.route()),
         child: Text(
-          'CREATE ACCOUNT',
+          'СОЗДАТЬ АККАУНТ',
           style: TextStyle(color: theme.primaryColor),
         ),
         style: ElevatedButton.styleFrom(
-          primary: Color(0xFFFF715B), // we can set primary color
-          shadowColor: Colors
-              .grey, //shadow prop is a very nice prop for every button or card widgets.
+          backgroundColor: Color.fromARGB(255, 192, 174, 69),
+          shadowColor: Colors.grey,
           side: BorderSide(
-              color: Color.fromARGB(195, 255, 113, 91), //change border color
-              width: 2, //change border width
-              style: BorderStyle
-                  .solid), // change border side of this beautiful button
+              color: Color.fromARGB(255, 205, 221, 221),
+              width: 2,
+              style: BorderStyle.solid),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-                30), //change border radius of this beautiful button thanks to BorderRadius.circular function
+            borderRadius: BorderRadius.circular(30),
           ),
           tapTargetSize: MaterialTapTargetSize.padded,
         ));

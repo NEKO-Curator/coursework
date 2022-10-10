@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:auth_repository/auth_repository.dart';
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:form_inputs/form_inputs.dart';

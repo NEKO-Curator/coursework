@@ -1,4 +1,4 @@
-import 'package:auth_repository/auth_repository.dart';
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:coursework/login/login.dart';
 import 'package:coursework/allConstants/theme.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('Вход'),
         centerTitle: true,
         backgroundColor: appBarColor,
       ),

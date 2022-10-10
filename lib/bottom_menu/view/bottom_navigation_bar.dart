@@ -11,11 +11,6 @@ class BottomNavBarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Login'),
-      //   centerTitle: true,
-      //   backgroundColor: appBarColor,
-      // ),
       body: BlocProvider(
         create: (_) => BottomMenuCubit(),
         child: const BottomNavBar(),

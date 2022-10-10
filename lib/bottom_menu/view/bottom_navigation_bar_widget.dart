@@ -2,7 +2,7 @@ import 'package:coursework/bottom_menu/cubit/bottom_menu_cubit.dart';
 import 'package:coursework/home/view/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:messager_repository/messager_repository.dart';
+import 'package:tables_repository/tables_repository.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -13,9 +13,7 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   final _pageNavigation = [
-    Text('1'),
-    Text('2'),
-    ChatModule(),
+    DetailTablePage(),
     HomePage(),
   ];
   @override
@@ -31,9 +29,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   Widget _buildBody(int index) {
-    /// Check if index is in range
-    /// else return Not Found widget
-    ///
     return _pageNavigation.elementAt(index);
   }
 
@@ -43,10 +38,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
       type: BottomNavigationBarType.fixed,
       onTap: _getChangeBottomNav,
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.school), label: "Teach"),
-        BottomNavigationBarItem(icon: Icon(Icons.book), label: "Learn"),
-        BottomNavigationBarItem(icon: Icon(Icons.chat_outlined), label: "Chat"),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Журнал'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Профиль'),
       ],
     );
   }

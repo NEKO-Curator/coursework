@@ -1,4 +1,4 @@
-import 'package:auth_repository/auth_repository.dart';
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:coursework/app/app.dart';
 import 'package:coursework/allConstants/theme.dart';
 import 'package:flow_builder/flow_builder.dart';

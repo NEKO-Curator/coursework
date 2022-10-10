@@ -1,4 +1,4 @@
-import 'package:auth_repository/auth_repository.dart';
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:coursework/sign_up/sign_up.dart';
 import 'package:coursework/allConstants/theme.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up'),
+        title: const Text('Регистрация'),
         backgroundColor: appBarColor,
       ),
       body: Padding(

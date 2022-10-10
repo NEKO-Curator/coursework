@@ -15,4 +15,4 @@ final theme = ThemeData(
   ),
 );
 
-final Color appBarColor = Color(0xFF1EA896);
+final Color appBarColor = Color.fromARGB(255, 165, 153, 181);
