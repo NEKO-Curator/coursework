@@ -58,7 +58,6 @@ class _DetailTablePageState extends State<DetailTablePage> {
                 _studentsDataSource = StudentsDataSource(_students);
                 return SfDataGrid(
                   frozenColumnsCount: 1,
-                  frozenRowsCount: 1,
                   allowEditing: true,
                   navigationMode: GridNavigationMode.cell,
                   selectionMode: SelectionMode.single,
