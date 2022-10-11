@@ -73,7 +73,7 @@ class _PasswordInput extends StatelessWidget {
               context.read<SignUpCubit>().passwordChanged(password),
           obscureText: true,
           decoration: InputDecoration(
-            labelText: 'password',
+            labelText: 'пароль',
             helperText: '',
             errorText: state.password.invalid ? 'неверный password' : null,
           ),
