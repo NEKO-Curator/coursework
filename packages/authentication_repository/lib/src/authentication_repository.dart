@@ -205,12 +205,17 @@ class AuthenticationRepository {
         email: email,
         password: password,
       );
-      //удалить при добавлении списка классов
+      //удалить после добавления списка классов
       final _dbService = DBService();
-      _dbService.addTableModel(
-        getClearTableModel(),
-        _firebaseAuth.currentUser!.uid,
-      );
+
+      if (await _dbService.AlreadyExists(
+        _firebaseAuth.currentUser!.uid.toString(),
+      )) {
+        _dbService.addTableModel(
+          getClearTableModel(),
+          _firebaseAuth.currentUser!.uid.toString(),
+        );
+      }
     } on FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
