@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -7,39 +6,52 @@ import 'package:tables_repository/src/model/table_model.dart';
 import 'package:tables_repository/src/utils/dataBase_service.dart';
 
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+late String? id;
+late int? numOfStudents;
+late int? weeks;
 late List<Students> _students;
-getDataFromDatabase() async {
-  DBService dbService = DBService();
-  return await dbService
-      .getCurrentTableModel(_firebaseAuth.currentUser!.uid.toString());
+getDataFromDatabase(TableModel tableModel) async {
+  // //заглушка, должно получать
+  // final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  // DBService dbService = DBService();
+  // await _db
+  //     .collection("Classes")
+  //     .where("creatorId", isEqualTo: _firebaseAuth.currentUser!.uid.toString())
+  //     .get();
+  // return await dbService.getCurrentTableModel();
+  return tableModel;
 }
 
-final GlobalKey<SfDataGridState> _key = GlobalKey<SfDataGridState>();
 Future<void> exportDataGrid() async {
   DBService dbService = DBService();
-  // final TableModel document = _key.currentState!.e;
-  // final List<int> bytes = document.save();
-  // await helper.saveAndLaunchFile(bytes, 'DataGrid.pdf');
-  // document.dispose();
-  TableModel tm = TableModel(name: '', students: _students);
-  dbService.updateTableModel(tm, _firebaseAuth.currentUser!.uid.toString());
-  log(_students[1].toString());
+  TableModel tm = TableModel(
+      creatorId: FirebaseAuth.instance.currentUser!.uid, students: _students);
+  log(id!);
+  dbService.updateTableModel(tm, id!);
+  //log(_students[1].toString());
 }
 
 class DetailTablePage extends StatefulWidget {
-  const DetailTablePage({super.key});
+  final TableModel? tableModel;
+  const DetailTablePage({super.key, this.tableModel});
 
   @override
-  State<DetailTablePage> createState() => _DetailTablePageState();
+  State<DetailTablePage> createState() =>
+      _DetailTablePageState(tableModel: tableModel);
 }
 
 class _DetailTablePageState extends State<DetailTablePage> {
+  TableModel? tableModel;
+  _DetailTablePageState({this.tableModel});
   late StudentsDataSource _studentsDataSource;
   EditingGestureType editingGestureType = EditingGestureType.tap;
   //late List<GridColumn> _scoresGridColumns;
   @override
   initState() {
-    getDataFromDatabase();
+    //getDataFromDatabase();
+    id = tableModel!.id!;
+    _students = tableModel!.students!;
     super.initState();
   }
 
@@ -47,8 +59,11 @@ class _DetailTablePageState extends State<DetailTablePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(tableModel?.title ?? 'Неизвестный класс'),
+        ),
         body: FutureBuilder(
-            future: getDataFromDatabase(),
+            future: getDataFromDatabase(tableModel!),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.hasData) {
                 TableModel showData = snapshot.data;
@@ -64,200 +79,7 @@ class _DetailTablePageState extends State<DetailTablePage> {
                   editingGestureType: editingGestureType,
                   allowSorting: true,
                   source: _studentsDataSource,
-                  //controller: ,
-                  columns: [
-                    GridColumn(
-                      columnName: 'name',
-                      minimumWidth: 130,
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          'ФИО',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '1',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '1',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '2',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '2',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '3',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '3',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '4',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '4',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '5',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '5',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '6',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '6',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '7',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '7',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '8',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '8',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '9',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '9',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '10',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '10',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '11',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '11',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '12',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '12',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '13',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '13',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '14',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '14',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '15',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '15',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '16',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '16',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: '17',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '17',
-                        ),
-                      ),
-                    ),
-                    GridColumn(
-                      columnName: 'sum',
-                      label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: Text(
-                          'всего',
-                        ),
-                      ),
-                    ),
-                  ],
+                  columns: getGridColumnsWidgets(tableModel!),
                 );
               } else {
                 return Center(
@@ -270,53 +92,79 @@ class _DetailTablePageState extends State<DetailTablePage> {
   }
 }
 
+List<GridColumn> getGridColumnsWidgets(TableModel tableModel) {
+  List<GridColumn> gColumnList = <GridColumn>[];
+  gColumnList.add(
+    GridColumn(
+      columnName: 'name',
+      minimumWidth: 130,
+      label: Container(
+        padding: const EdgeInsets.all(8.0),
+        alignment: Alignment.center,
+        child: Text(
+          'ФИО',
+        ),
+      ),
+    ),
+  );
+  for (var i = 1; i < tableModel.getNumOfWeeks()! + 1; i++) {
+    gColumnList.add(
+      GridColumn(
+        allowSorting: false,
+        columnName: i.toString(),
+        label: Container(
+          padding: const EdgeInsets.all(8.0),
+          alignment: Alignment.center,
+          child: Text(
+            i.toString(),
+          ),
+        ),
+      ),
+    );
+  }
+  gColumnList.add(
+    GridColumn(
+      allowEditing: false,
+      columnName: 'sum',
+      label: Container(
+        padding: const EdgeInsets.all(8.0),
+        alignment: Alignment.center,
+        child: Text(
+          'всего',
+        ),
+      ),
+    ),
+  );
+  return gColumnList;
+}
+
 class StudentsDataSource extends DataGridSource {
   StudentsDataSource(List<Students> students) {
     dataGridRows = students
         .map<DataGridRow>(
-          (dataGridRows) => DataGridRow(cells: [
-            DataGridCell<String>(
-                columnName: 'name', value: dataGridRows.studentName),
-            DataGridCell<String>(
-                columnName: '1', value: dataGridRows.scores?[0] ?? ''),
-            DataGridCell<String>(
-                columnName: '2', value: dataGridRows.scores?[1] ?? ''),
-            DataGridCell<String>(
-                columnName: '3', value: dataGridRows.scores?[2] ?? ''),
-            DataGridCell<String>(
-                columnName: '4', value: dataGridRows.scores?[3] ?? ''),
-            DataGridCell<String>(
-                columnName: '5', value: dataGridRows.scores?[4] ?? ''),
-            DataGridCell<String>(
-                columnName: '6', value: dataGridRows.scores?[5] ?? ''),
-            DataGridCell<String>(
-                columnName: '7', value: dataGridRows.scores?[6] ?? ''),
-            DataGridCell<String>(
-                columnName: '8', value: dataGridRows.scores?[7] ?? ''),
-            DataGridCell<String>(
-                columnName: '9', value: dataGridRows.scores?[8] ?? ''),
-            DataGridCell<String>(
-                columnName: '10', value: dataGridRows.scores?[9] ?? ''),
-            DataGridCell<String>(
-                columnName: '11', value: dataGridRows.scores?[10] ?? ''),
-            DataGridCell<String>(
-                columnName: '12', value: dataGridRows.scores?[11] ?? ''),
-            DataGridCell<String>(
-                columnName: '13', value: dataGridRows.scores?[12] ?? ''),
-            DataGridCell<String>(
-                columnName: '14', value: dataGridRows.scores?[13] ?? ''),
-            DataGridCell<String>(
-                columnName: '15', value: dataGridRows.scores?[14] ?? ''),
-            DataGridCell<String>(
-                columnName: '16', value: dataGridRows.scores?[15] ?? ''),
-            DataGridCell<String>(
-                columnName: '17', value: dataGridRows.scores?[16] ?? ''),
-            DataGridCell<String>(
-                columnName: 'sum', value: GetScoreSum(dataGridRows.scores)),
-          ]),
+          (dataGridRows) => DataGridRow(cells: getListForDG(dataGridRows)),
         )
         .toList();
   }
+
+  List<DataGridCell<dynamic>> getListForDG(Students students) {
+    List<DataGridCell<dynamic>> dGList = <DataGridCell<dynamic>>[];
+    dGList.add(
+      DataGridCell<String>(columnName: 'name', value: students.studentName),
+    );
+    for (var i = 0; i < students.scores!.length; i++) {
+      dGList.add(
+        DataGridCell<String>(
+            columnName: (i + 1).toString(), value: students.scores?[i] ?? ''),
+      );
+    }
+    dGList.add(
+      DataGridCell<String>(
+          columnName: 'sum', value: GetScoreSum(students.scores)),
+    );
+    return dGList;
+  }
+
   late List<DataGridRow> dataGridRows;
 
   @override
@@ -338,11 +186,6 @@ class StudentsDataSource extends DataGridSource {
     );
   }
 
-  //EDIT TEXT 2 ovverides
-
-  /// Helps to hold the new value of all editable widget.
-  /// Based on the new value we will commit the new value into the corresponding
-  /// DataGridCell on onCellSubmit method.
   dynamic newCellValue;
 
   TextEditingController editingController = TextEditingController();
@@ -365,78 +208,12 @@ class StudentsDataSource extends DataGridSource {
       dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
           DataGridCell<String>(columnName: 'name', value: newCellValue);
       _students[dataRowIndex].studentName = newCellValue.toString();
-    } else if (column.columnName == '17') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '17', value: newCellValue);
-      _students[dataRowIndex].scores![16] = newCellValue.toString();
-    } else if (column.columnName == '1') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '1', value: newCellValue);
-      _students[dataRowIndex].scores![0] = newCellValue.toString();
-    } else if (column.columnName == '2') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '2', value: newCellValue);
-      _students[dataRowIndex].scores![1] = newCellValue.toString();
-    } else if (column.columnName == '3') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '3', value: newCellValue);
-      _students[dataRowIndex].scores![2] = newCellValue.toString();
-    } else if (column.columnName == '4') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '4', value: newCellValue);
-      _students[dataRowIndex].scores![3] = newCellValue.toString();
-    } else if (column.columnName == '5') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '5', value: newCellValue);
-      _students[dataRowIndex].scores![4] = newCellValue.toString();
-    } else if (column.columnName == '6') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '6', value: newCellValue);
-      _students[dataRowIndex].scores![5] = newCellValue.toString();
-    } else if (column.columnName == '7') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '7', value: newCellValue);
-      _students[dataRowIndex].scores![6] = newCellValue.toString();
-    } else if (column.columnName == '8') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '8', value: newCellValue);
-      _students[dataRowIndex].scores![7] = newCellValue.toString();
-    } else if (column.columnName == '9') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '9', value: newCellValue);
-      _students[dataRowIndex].scores![8] = newCellValue.toString();
-    } else if (column.columnName == '10') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '10', value: newCellValue);
-      _students[dataRowIndex].scores![9] = newCellValue.toString();
-    } else if (column.columnName == '11') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '11', value: newCellValue);
-      _students[dataRowIndex].scores![10] = newCellValue.toString();
-    } else if (column.columnName == '12') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '12', value: newCellValue);
-      _students[dataRowIndex].scores![11] = newCellValue.toString();
-    } else if (column.columnName == '13') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '13', value: newCellValue);
-      _students[dataRowIndex].scores![12] = newCellValue.toString();
-    } else if (column.columnName == '14') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '14', value: newCellValue);
-      _students[dataRowIndex].scores![13] = newCellValue.toString();
-    } else if (column.columnName == '15') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '15', value: newCellValue);
-      _students[dataRowIndex].scores![14] = newCellValue.toString();
-    } else if (column.columnName == '16') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(columnName: '16', value: newCellValue);
-      _students[dataRowIndex].scores![15] = newCellValue.toString();
     } else if (column.columnName == 'sum') {
       dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
           DataGridCell<String>(columnName: 'sum', value: newCellValue);
       _students[dataRowIndex].endScore = newCellValue.toString();
+    } else {
+      elifOnCellSubmit(dataRowIndex, rowColumnIndex, column);
     }
   }
 
@@ -494,6 +271,20 @@ class StudentsDataSource extends DataGridSource {
         },
       ),
     );
+  }
+
+  void elifOnCellSubmit(
+    int dataRowIndex,
+    RowColumnIndex rowColumnIndex,
+    GridColumn column,
+  ) {
+    int i = 1;
+    while (column.columnName != i.toString()) {
+      i++;
+    }
+    dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
+        DataGridCell<String>(columnName: i.toString(), value: newCellValue);
+    _students[dataRowIndex].scores![i - 1] = newCellValue.toString();
   }
 }
 

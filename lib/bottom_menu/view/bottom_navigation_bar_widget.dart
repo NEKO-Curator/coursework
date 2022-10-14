@@ -13,7 +13,7 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   final _pageNavigation = [
-    DetailTablePage(),
+    MainTablesScreen(),
     HomePage(),
   ];
   @override

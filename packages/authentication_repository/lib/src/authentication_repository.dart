@@ -205,17 +205,16 @@ class AuthenticationRepository {
         email: email,
         password: password,
       );
-      //удалить после добавления списка классов
-      final _dbService = DBService();
+      // //удалить после добавления списка классов
+      // final _dbService = DBService();
 
-      if (await _dbService.AlreadyExists(
-        _firebaseAuth.currentUser!.uid.toString(),
-      )) {
-        _dbService.addTableModel(
-          getClearTableModel(),
-          _firebaseAuth.currentUser!.uid.toString(),
-        );
-      }
+      // if (await _dbService.AlreadyExists(
+      //   _firebaseAuth.currentUser!.uid.toString(),
+      // )) {
+      //   _dbService.addTableModel(
+      //     getClearTableModel(_firebaseAuth.currentUser!.uid, 10, 12, 'title'),
+      //   );
+      // }
     } on FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
@@ -253,17 +252,16 @@ class AuthenticationRepository {
 
       await _firebaseAuth.signInWithCredential(credential);
 
-      //удалить после добавления списка классов
-      final _dbService = DBService();
+      // //удалить после добавления списка классов
+      // final _dbService = DBService();
 
-      if (await _dbService.AlreadyExists(
-        _firebaseAuth.currentUser!.uid.toString(),
-      )) {
-        _dbService.addTableModel(
-          getClearTableModel(),
-          _firebaseAuth.currentUser!.uid.toString(),
-        );
-      }
+      // if (await _dbService.AlreadyExists(
+      //   _firebaseAuth.currentUser!.uid.toString(),
+      // )) {
+      //   _dbService.addTableModel(
+      //     getClearTableModel(_firebaseAuth.currentUser!.uid, 10, 12, 'title'),
+      //   );
+      // }
     } on FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure.fromCode(e.code);
     } catch (_) {
