@@ -5,11 +5,11 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:tables_repository/src/model/table_model.dart';
 import 'package:tables_repository/src/utils/dataBase_service.dart';
 
-final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 late String? id;
 late int? numOfStudents;
 late int? weeks;
 late List<Students> _students;
+late String? _title;
 getDataFromDatabase(TableModel tableModel) async {
   // //заглушка, должно получать
   // final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -26,7 +26,9 @@ getDataFromDatabase(TableModel tableModel) async {
 Future<void> exportDataGrid() async {
   DBService dbService = DBService();
   TableModel tm = TableModel(
-      creatorId: FirebaseAuth.instance.currentUser!.uid, students: _students);
+      creatorId: FirebaseAuth.instance.currentUser!.uid,
+      students: _students,
+      title: _title);
   log(id!);
   dbService.updateTableModel(tm, id!);
   //log(_students[1].toString());
@@ -52,6 +54,7 @@ class _DetailTablePageState extends State<DetailTablePage> {
     //getDataFromDatabase();
     id = tableModel!.id!;
     _students = tableModel!.students!;
+    _title = tableModel!.title;
     super.initState();
   }
 

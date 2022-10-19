@@ -44,19 +44,4 @@ class DBService {
       return tm;
     }).toList();
   }
-
-  Future<bool> AlreadyExists(String id) async {
-    try {
-      final snapshot = await _db.collection("Classes").doc(id).get();
-      //log(await snapshot.data().toString());
-      log(id);
-      log('снапшот прошел');
-      //snapshot.then((value) => value.data() != null)
-      return await snapshot.data() == null;
-    } catch (e) {
-      log(e.toString());
-      log('ошибка при создании');
-      return true;
-    }
-  }
 }
